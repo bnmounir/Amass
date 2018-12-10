@@ -1,7 +1,9 @@
+require("dotenv").config();
 var express       = require("express"),
     app           = express(),
     bodyParser    = require("body-parser"),
     mongoose      = require("mongoose"),
+    session       = require("express-session"),
     flash         = require('connect-flash'),
     passport      = require('passport'),
     LocalStrategy = require('passport-local'),
@@ -12,8 +14,6 @@ var indexRoutes      = require("./routes/index"),
     campgroundRoutes = require("./routes/campgrounds"),   
     commentRoutes    = require("./routes/comments");    
     
-//mongoose.connect("mongodb://localhost:27017/yelp_camp_v12", { useNewUrlParser: true });                 // locally its set to this using the commend: export DATABASEURL=mongodb://localhost:27017/yelp_camp_v12
-//mongoose.connect("mongodb://nodelamp:1111lamp@yelpcamp-shard-00-00-mw9wc.mongodb.net:27017,yelpcamp-shard-00-01-mw9wc.mongodb.net:27017,yelpcamp-shard-00-02-mw9wc.mongodb.net:27017/test?ssl=true&replicaSet=yelpcamp-shard-0&authSource=admin&retryWrites=true", { useNewUrlParser: true });            // the deployed app its set to this with the commend: heroku config:set DATABASEURL="mongodb://nodelamp:1111lamp@yelpcamp-shard-00-00-mw9wc.mongodb.net:27017,yelpcamp-shard-00-01-mw9wc.mongodb.net:27017,yelpcamp-shard-00-02-mw9wc.mongodb.net:27017/test?ssl=true&replicaSet=yelpcamp-shard-0&authSource=admin&retryWrites=true"
 var url = process.env.DATABASEURL ||"mongodb://localhost:27017/yelp_camp_v12";
 mongoose.connect(url, { useNewUrlParser: true });
 
@@ -25,9 +25,10 @@ app.use(methodOverride("_method"));
 app.use(flash());
 app.locals.moment = require("moment");
 
+
 //passport config
-app.use(require("express-session")({
-    secret: "i wanna finish my web dev course soon",
+app.use(session({
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false
 }));
