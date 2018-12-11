@@ -1,4 +1,3 @@
-require("dotenv").config();
 var express       = require("express"),
     app           = express(),
     bodyParser    = require("body-parser"),
@@ -9,6 +8,7 @@ var express       = require("express"),
     LocalStrategy = require('passport-local'),
     methodOverride= require('method-override'),
     User          = require('./models/user');
+    require("dotenv").config();
 
 var indexRoutes      = require("./routes/index"),    
     campgroundRoutes = require("./routes/campgrounds"),   
