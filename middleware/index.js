@@ -10,7 +10,7 @@ middlewareObj.isCampOwner = function (req, res, next){
                 req.flash("error","Campground not found!");
                 res.redirect("back");
             }else{
-                if(foundCamp.author.id.equals(req.user._id)) {
+                if(foundCamp.author.id.equals(req.user._id) || req.user.isAdmin) {
                     next();
                 }else{
                     req.flash("error", "not permitted!");
@@ -30,7 +30,7 @@ middlewareObj.isCommentOwner = function (req, res, next){
                 req.flash("error", "comment not found");
                 res.redirect("back");
             }else{
-                if(foundComment.author.id.equals(req.user._id)) {
+                if(foundComment.author.id.equals(req.user._id) || req.user.isAdmin) {
                     next();
                 }else{
                     req.flash("error", "not permitted!");
