@@ -21,9 +21,6 @@ router.get("/register", function(req, res){
 //sign up logic
 router.post("/register", (req, res)=>{
     let newUser = new User({username: req.body.username});
-    // if(req.body.adminCode === "secretcode123"){
-    //     newUser.isAdmin = true;
-    // }
     User.register(newUser, req.body.password, (err, user)=>{
         if(err){
             req.flash("error", err.message);
@@ -38,12 +35,12 @@ router.post("/register", (req, res)=>{
 
 //admin logic auth
 router.get("/admin", middleware.isLogged, function(req, res){
-    console.log("is it ... "+ req.user.isAdmin);
-    if(req.user.isAdmin === true){
-        // req.flash("success",`${req.user.username}, you are an admin already!`);
-        res.render("/campgrounds/");  
+    if(req.user.isAdmin !== true){
+        res.render("admin", {page: 'admin'});      
+    } else {
+        req.flash("success",`${req.user.username}, you are already an admin, no need to go there!`);
+        res.redirect('/campgrounds');
     }
-    res.render("admin", {page: 'admin'}); 
 });
 
 router.post("/admin", middleware.isLogged, (req, res) => {
