@@ -1,6 +1,5 @@
 <% include ../partials/header %>
 
-        
         <div class="row">
             <div class="col-md-3">
                 <p class="lead">YelpCamp</p>
@@ -18,7 +17,7 @@
                     <h4 class="pull-right">$<%= camps.price %>/night</h4>
                     <h4><a><%= camps.name %></a></h4> 
                     <p><%= camps.description %></p>
-                    <P><em>Submitted by <%= camps.author.username %></em>, <%= moment(camps.createdAt).fromNow() %></P>
+                    <P><em>Submitted by <a href="../users/<%= camps.author.id %>"><%= camps.author.username %></a></em>, <%= moment(camps.createdAt).fromNow() %></P>
                     <% if(currentUser && camps.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
                     <a class="btn btn-default btn-xs" href="/campgrounds/<%= camps._id %>/edit">Edit</a>
                     <form id="del-form" action="/campgrounds/<%= camps._id %>?_method=DELETE" method="POST">
