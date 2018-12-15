@@ -15,7 +15,7 @@ var indexRoutes      = require("./routes/index"),
     commentRoutes    = require("./routes/comments");    
     //for local work "mongodb://localhost:27017/yelp_camp_v13" || 
     //for deployed app process.env.DATABASEURL
-var url = "mongodb://localhost:27017/yelp_camp_v13";
+var url = process.env.DATABASEURL;
 
 mongoose.connect(url, { useNewUrlParser: true, useCreateIndex: true, }); 
 

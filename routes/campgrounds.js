@@ -10,19 +10,35 @@ var options = {
   apiKey: process.env.GEOCODER_API_KEY,
   formatter: null
 };
- 
+
 var geocoder = NodeGeocoder(options);
 
 // campgrounds
 
 router.get("/", (req, res) => {
-    Campground.find({}, (err, allcamps) => {
-        if(err) {
-            console.log(err);
-        }else {
-            res.render("campgrounds/index", {camps: allcamps, currentUser: req.user, page: 'campgrounds'});
-        }
-    });    
+    let noMatch = null;
+    if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        //get all camps if no search
+        Campground.find({"name": regex}, (err, allcamps) => {
+            if(err) {
+                console.log(err);
+            }else {
+                if(allcamps !== null){
+                    noMatch = 'No campgrounds Found, please try something else!';
+                }
+                res.render("campgrounds/index", {camps: allcamps, noMatch: noMatch, currentUser: req.user, page: 'campgrounds'});
+            }
+        });
+    }else{
+            Campground.find({}, (err, allcamps) => {
+            if(err) {
+                console.log(err);
+            } else {
+                res.render("campgrounds/index", {camps: allcamps, noMatch: noMatch, currentUser: req.user, page: 'campgrounds'});
+            }
+        });
+    }
 });
 
 //create route
@@ -115,5 +131,9 @@ router.delete("/:id", middleware.isCampOwner, (req, res)=>{
         }
     });
 });
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 module.exports = router;

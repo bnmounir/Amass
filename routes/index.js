@@ -159,7 +159,9 @@ router.post("/forgot", (req, res, next)=>{
                         'if you didn\'t request a reset please contact us from our website!' 
             };
             smtpTransport.sendMail(mailOptions, (err)=>{
-                if(err) {return req.redirect('/forgot');}
+                if(err) {
+                    return req.redirect('/forgot');
+                }
                 req.flash('success', `An e-mail has been sent to ${user.email} with further instructions.`);
                 done(err, 'done');
             });
