@@ -1,38 +1,39 @@
 <% include ../partials/header %>
 
 <header class="jumbotron">
-    <h1>This is the Camping Grounds!</h1>
-    <p>Campers all over</p>
-    <a class="btn btn-primary btn-lg" href="/campgrounds/new">Add new Campground</a>
-
+  <h1>This is the Subject Display!</h1>
+  <p>for all Ideas and Thoughts</p>
+  <a class="btn btn-primary btn-lg" href="/subjects/new">add new Subject</a>
 </header>
 <div class="row text-center" style="display:flex; flex-wrap:wrap">
-    <% if(noMatch !== null) { %> 
-      <div class="container">
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="search"><%= noMatch %></label>
-                <input type="text" class="form-control" name="search" placeholder="Search...">
-            </div>
-            <button type="submit" class="btn btn-default">Go!</button>
-        </form>
+  <% if(noMatch !== null) { %>
+  <div class="container">
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="search"><%= noMatch %></label>
+        <input
+          type="text"
+          class="form-control"
+          name="search"
+          placeholder="Search..."
+        />
       </div>
-    <% } %>    
-
-        <% camps.forEach((camp) => { %>
-         <div class="col-md-4 col-sm-12">   
-            <div class="thumbnail">
-             <img src="<%= camp.image %>">
-             <div class="caption">
-              <h4><%= camp.name %></h4>
-              </div>
-              <p>
-                  <a href="/campgrounds/<%= camp._id %>" class="btn btn-primary">More info</a>
-              </p>
-            </div> 
-            </div>
-        <% }) %>
+      <button type="submit" class="btn btn-default">Go!</button>
+    </form>
+  </div>
+  <% } %> <% subjects.forEach((subject) => { %>
+  <div class="col-md-4 col-sm-12">
+    <div class="thumbnail">
+      <img src="<%= subject.image %>" />
+      <div class="caption"><h4><%= subject.name %></h4></div>
+      <p>
+        <a href="/subjects/<%= subject._id %>" class="btn btn-primary"
+          >More info</a
+        >
+      </p>
+    </div>
+  </div>
+  <% }) %>
 </div>
-
 
 <% include ../partials/footer %>

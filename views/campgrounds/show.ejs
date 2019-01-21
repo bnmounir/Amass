@@ -1,86 +1,120 @@
 <% include ../partials/header %>
 
-        <div class="row">
-            <div class="col-md-3">
-                <p class="lead">YelpCamp</p>
-                <!--<div class="list-group">-->
-                <!--    <li class="list-group-item active">Info 1</li>-->
-                <!--    <li class="list-group-item">Info 2</li>-->
-                <!--    <li class="list-group-item">Info 3</li>-->
-                <!--</div>-->
-                <div id="map"></div>
-            </div>
-        <div class="col-md-9">
-            <div class="thumbnail">
-                <img class="img-responsive" src="<%= camps.image %>">  
-                <div class="caption-full">
-                    <h4 class="pull-right">$<%= camps.price %>/night</h4>
-                    <h4><a><%= camps.name %></a></h4> 
-                    <p><%= camps.description %></p>
-                    <P><em>Submitted by <a href="../users/<%= camps.author.id %>"><%= camps.author.username %></a></em>, <%= moment(camps.createdAt).fromNow() %></P>
-                    <% if(currentUser && camps.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-                    <a class="btn btn-default btn-xs" href="/campgrounds/<%= camps._id %>/edit">Edit</a>
-                    <form id="del-form" action="/campgrounds/<%= camps._id %>?_method=DELETE" method="POST">
-                        <button class="btn btn-default btn-xs">Delete</button>
-                    </form>
-                    <% } %>
-                </div>
-            </div>
-            <div class="well">
-                <div class="text-right">
-                        <a class="btn btn-success" href="/campgrounds/<%= camps._id %>/comments/new">Add new Comment</a>
-                </div>
-                <hr>
-                <% camps.comments.forEach((comment)=>{ %>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <strong><%= comment.author.username %></strong>
-                            <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
-                            <p>
-                                <%= comment.text %>
-                            </p>
-                            <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
-                                <a class="btn btn-xs btn-default" href="/campgrounds/<%= camps._id %>/comments/<%= comment._id %>/edit">Edit</a>
-                                <form class="del-form" action="/campgrounds/<%= camps._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                                    <input type="submit" class="btn btn-xs btn-default" value="Delete">
-                                </form>
-                            <% } %>
-                        </div>
-                    </div>
-                <% }) %>
-            </div>
-        </div>
+<div class="row">
+  <div class="col-md-3">
+    <p class="lead">Tellme</p>
+    <!--<div class="list-group">-->
+    <!--    <li class="list-group-item active">Info 1</li>-->
+    <!--    <li class="list-group-item">Info 2</li>-->
+    <!--    <li class="list-group-item">Info 3</li>-->
+    <!--</div>-->
+    <div id="map"></div>
+  </div>
+  <div class="col-md-9">
+    <div class="thumbnail">
+      <img class="img-responsive" src="<%= subjects.image %>" />
+      <div class="caption-full">
+        <h4 class="pull-right">$<%= subjects.price %>/night</h4>
+        <h4><a><%= subjects.name %></a></h4>
+        <p><%= subjects.description %></p>
+        <P
+          ><em
+            >Submitted by
+            <a href="../users/<%= subjects.author.id %>"
+              ><%= subjects.author.username %></a
+            ></em
+          >, <%= moment(subjects.createdAt).fromNow() %></P
+        >
+        <% if(currentUser && subjects.author.id.equals(currentUser._id) ||
+        currentUser && currentUser.isAdmin){ %>
+        <a
+          class="btn btn-default btn-xs"
+          href="/subjects/<%= subjects._id %>/edit"
+          >Edit</a
+        >
+        <form
+          id="del-form"
+          action="/subjects/<%= subjects._id %>?_method=DELETE"
+          method="POST"
+        >
+          <button class="btn btn-default btn-xs">Delete</button>
+        </form>
+        <% } %>
+      </div>
     </div>
+    <div class="well">
+      <div class="text-right">
+        <a
+          class="btn btn-success"
+          href="/subjects/<%= subjects._id %>/comments/new"
+          >Add new Comment</a
+        >
+      </div>
+      <hr />
+      <% subjects.comments.forEach((comment)=>{ %>
+      <div class="row">
+        <div class="col-md-12">
+          <strong><%= comment.author.username %></strong>
+          <span class="pull-right"
+            ><%= moment(comment.createdAt).fromNow() %></span
+          >
+          <p><%= comment.text %></p>
+          <% if(currentUser && comment.author.id.equals(currentUser._id) ||
+          currentUser && currentUser.isAdmin) { %>
+          <a
+            class="btn btn-xs btn-default"
+            href="/subjects/<%= subjects._id %>/comments/<%= comment._id %>/edit"
+            >Edit</a
+          >
+          <form
+            class="del-form"
+            action="/subjects/<%= subjects._id %>/comments/<%= comment._id %>?_method=DELETE"
+            method="POST"
+          >
+            <input
+              type="submit"
+              class="btn btn-xs btn-default"
+              value="Delete"
+            />
+          </form>
+          <% } %>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</div>
 <script>
   function initMap() {
-    var lat = <%= camps.lat %>;
-    var lng = <%= camps.lng %>;
-    var center = {lat: lat, lng: lng };
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 8,
-        center: center,
-        scrollwheel: false
+    let lat = subjects.lat;
+    let lng = subjects.lng;
+    const center = { lat: lat, lng: lng };
+    const map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: center,
+      scrollwheel: false
     });
-    var contentString = `
-      <strong><%= camps.name %><br />
-      <%= camps.location %></strong>
-      <p><%= camps.description %></p>
-    `
-    var infowindow = new google.maps.InfoWindow({
+    const contentString = `
+      <strong><%= subjects.name %><br />
+      <%= subjects.location %></strong>
+      <p><%= subjects.description %></p>
+    `;
+    const infowindow = new google.maps.InfoWindow({
       content: contentString
     });
-    var marker = new google.maps.Marker({
-        position: center,
-        map: map
+    const marker = new google.maps.Marker({
+      position: center,
+      map: map
     });
     marker.addListener('click', function() {
       infowindow.open(map, marker);
     });
   }
 </script>
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGIE42SeQZq3gxjGZRXpIrfHowL--P7gs&callback=initMap">
-</script>
-
+<script
+  async
+  defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGIE42SeQZq3gxjGZRXpIrfHowL--P7gs&callback=initMap"
+></script>
 
 <% include ../partials/footer %>

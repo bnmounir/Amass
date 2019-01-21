@@ -1,50 +1,48 @@
 <% include ../partials/header %>
 
 <div class="row">
-    <div class="col-md-4 col-sm-4">
-        <h1><%= user.firstName + " " + user.lastName %></h1>
-        <div class="thumbnail col-md-12 col-sm-12">
-            <img src="<%= user.avatar %>" alt="user profile image">
-            <div class="caption"><a href="mailto:<%= user.email %>">Connect: <%= user.email %></a></div>
-        </div>
-        <div class="container col-md-12 col-sm-12">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Aenean neque lorem, pharetra ullamcorper enim pellentesque, placerat fermentum nisl.
-                Sed dapibus ante placerat nunc sagittis tincidunt.
-                Quisque vel tincidunt arcu, sed gravida nisl.
-                Aenean sagittis arcu et nulla tempor laoreet.
-                Fusce enim metus, ultrices vitae dui ut, eleifend ornare felis.
-                Duis non consectetur urna. Nulla viverra diam vel purus eleifend varius. 
-                Sed id nunc eget erat cursus venenatis. Aliquam quis lobortis neque. 
-                Nam ac nibh congue, ullamcorper nulla ac, volutpat ligula. 
-                Pellentesque imperdiet consequat nunc. Donec pharetra varius pharetra. 
-                Nam dignissim lectus et elit euismod, vulputate viverra elit convallis. 
-                Nulla faucibus, felis id feugiat auctor, odio ante feugiat dui, sed imperdiet ex sapien sed neque.
-                
-                Suspendisse vitae est consectetur lorem dapibus auctor eget sollicitudin erat.
-                Aenean eu lobortis purus. Praesent metus elit, ullamcorper ac varius non, rutrum eget diam.
-                Nulla ut nunc vitae felis pulvinar blandit. Etiam ullamcorper semper euismod.
-                Sed sodales, lectus at suscipit faucibus, eros elit pellentesque purus, eu malesuada quam purus eu orci.
-                Aliquam erat volutpat. Morbi venenatis erat eget urna eleifend, ut tincidunt dui aliquet.
-                Vivamus congue lectus finibus, mollis metus non, tincidunt risus.
-                Phasellus faucibus venenatis sapien id rhoncus. 
-                Suspendisse porta dictum mi, ac varius mauris tincidunt ut.
-                Phasellus mollis erat quis lectus pretium, eu auctor ex aliquam.
-            </p>    
-        </div>
+  <div class="col-md-4 col-sm-4">
+    <h1><%= user.firstName + " " + user.lastName %></h1>
+    <div class="thumbnail col-md-12 col-sm-12">
+      <img src="<%= user.avatar %>" alt="user profile image" />
+      <div class="caption">
+        <a href="mailto:<%= user.email %>">Connect: <%= user.email %></a>
+      </div>
     </div>
-    <div class="col-md-8 col-sm-8">
-        <h3><%= user.username %>'s Campgrounds</h3>
-      <ul>   
-        <% campgrounds.forEach(function(campground) { %>
-          <li>
-            <a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a>
-          </li>
-        <% }); %>  
-      </ul>     
+    <div class="container col-md-12 col-sm-12">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean neque
+        lorem, pharetra ullamcorper enim pellentesque, placerat fermentum nisl.
+        Sed dapibus ante placerat nunc sagittis tincidunt. Quisque vel tincidunt
+        arcu, sed gravida nisl. Aenean sagittis arcu et nulla tempor laoreet.
+        Fusce enim metus, ultrices vitae dui ut, eleifend ornare felis. Duis non
+        consectetur urna. Nulla viverra diam vel purus eleifend varius. Sed id
+        nunc eget erat cursus venenatis. Aliquam quis lobortis neque. Nam ac
+        nibh congue, ullamcorper nulla ac, volutpat ligula. Pellentesque
+        imperdiet consequat nunc. Donec pharetra varius pharetra. Nam dignissim
+        lectus et elit euismod, vulputate viverra elit convallis. Nulla
+        faucibus, felis id feugiat auctor, odio ante feugiat dui, sed imperdiet
+        ex sapien sed neque. Suspendisse vitae est consectetur lorem dapibus
+        auctor eget sollicitudin erat. Aenean eu lobortis purus. Praesent metus
+        elit, ullamcorper ac varius non, rutrum eget diam. Nulla ut nunc vitae
+        felis pulvinar blandit. Etiam ullamcorper semper euismod. Sed sodales,
+        lectus at suscipit faucibus, eros elit pellentesque purus, eu malesuada
+        quam purus eu orci. Aliquam erat volutpat. Morbi venenatis erat eget
+        urna eleifend, ut tincidunt dui aliquet. Vivamus congue lectus finibus,
+        mollis metus non, tincidunt risus. Phasellus faucibus venenatis sapien
+        id rhoncus. Suspendisse porta dictum mi, ac varius mauris tincidunt ut.
+        Phasellus mollis erat quis lectus pretium, eu auctor ex aliquam.
+      </p>
     </div>
+  </div>
+  <div class="col-md-8 col-sm-8">
+    <h3><%= user.username %>'s Subjects</h3>
+    <ul>
+      <% subjects.forEach(function(subject) { %>
+      <li><a href="/subjects/<%= subject.id %>"><%= subject.name %></a></li>
+      <% }); %>
+    </ul>
+  </div>
 </div>
-
 
 <% include ../partials/footer %>
