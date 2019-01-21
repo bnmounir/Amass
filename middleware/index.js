@@ -3,14 +3,14 @@ const Comment = require('../models/comment');
 
 let middlewareObj = {};
 
-middlewareObj.isCampOwner = function(req, res, next) {
+middlewareObj.isSubjectOwner = function(req, res, next) {
   if (req.isAuthenticated()) {
-    Subject.findById(req.params.id, (err, foundCamp) => {
-      if (err || !foundCamp) {
+    Subject.findById(req.params.id, (err, foundSubject) => {
+      if (err || !foundSubject) {
         req.flash('error', 'Subject not found!');
         res.redirect('back');
       } else {
-        if (foundCamp.author.id.equals(req.user._id) || req.user.isAdmin) {
+        if (foundSubject.author.id.equals(req.user._id) || req.user.isAdmin) {
           next();
         } else {
           req.flash('error', 'not permitted!');

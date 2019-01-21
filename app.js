@@ -16,7 +16,7 @@ const indexRoutes = require('./routes/index'),
 //for local work "mongodb://localhost:27017/local_db" ||
 //for deployed app process.env.DATABASEURL
 const url = process.env.DATABASEURL;
-
+const port = process.env.PORT || 3000;
 mongoose.connect(
   url,
   { useNewUrlParser: true, useCreateIndex: true }
@@ -54,6 +54,6 @@ app.use('/', indexRoutes);
 app.use('/subjects', subjectsRoutes);
 app.use('/subjects/:id/comments', commentRoutes);
 
-app.listen(process.env.PORT, process.env.IP, () => {
-  console.log('Server Started: Talktome website ON!');
+app.listen(port, process.env.IP, () => {
+  console.log(`Server Started: Talktome website on port ${port}!`);
 });
