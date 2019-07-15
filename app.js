@@ -40,7 +40,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash('error');
     res.locals.success = req.flash('success');
@@ -52,8 +52,8 @@ app.use('/subjects', subjectsRoutes);
 app.use('/subjects/:id/comments', commentRoutes);
 
 var http = require('http');
-setInterval(function() {
-    http.get('https://limitless-lake-16790.herokuapp.com');
+setInterval(function () {
+    http.get('http://limitless-lake-16790.herokuapp.com');
 }, 300000);
 
 app.listen(port, process.env.IP, () => {
